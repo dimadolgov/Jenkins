@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Cleanup') {
+            steps {
+                sh 'rm -rf *'
+            }
+        }
+        stage('Clone') {
+            steps {
+                sh 'git clone https://github.com/dimadolgov/Jenkins-Docker-VMware-PowerCLI.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'cd Jenkins-Docker-VMware-PowerCLI/ && docker build -t powercli .'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'docker images'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                echo 'Stage Docker Build'
+            }
+        }
+        stage('Docker Push') {
+            steps {
+                echo 'Stage Docker Push'
+            }
+        }
+    }
+}
